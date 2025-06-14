@@ -103,6 +103,18 @@ elif page == "🔍 Model Evaluation":
         # Explain model predictions
         explainer = shap.TreeExplainer(model)
         shap_values = explainer.shap_values(X_test)
+         # Rename columns for clearer SHAP labels
+        X_test_renamed = X_test.copy()
+        X_test_renamed.columns = [
+            "Gender",
+            "Smoking History",
+            "BMI Category",
+            "Glucose Category",
+            "Age (Standardized)",
+            "BMI (Standardized)",
+            "HbA1c (Standardized)",
+            "Glucose (Standardized)"
+        ]
         # Bar plot
         shap.summary_plot(shap_values, X_test, plot_type="bar", show=False)
         fig_bar = plt.gcf()  # Get current figure
@@ -111,7 +123,7 @@ elif page == "🔍 Model Evaluation":
         shap.summary_plot(shap_values, X_test, show=False)
         fig_dot = plt.gcf()
         st.pyplot(fig_dot)
-
+   
 elif page == "🧪 Live Prediction":
     st.title("🧪 Live Patient Prediction")
     with st.form("prediction_form"):
