@@ -100,12 +100,17 @@ elif page == "🔍 Model Evaluation":
 
     if model_choice in ["Random Forest", "XGBoost"]:
         st.subheader("SHAP Feature Importance")
+        # Explain model predictions
         explainer = shap.TreeExplainer(model)
         shap_values = explainer.shap_values(X_test)
+        # Bar plot
         shap.summary_plot(shap_values, X_test, plot_type="bar", show=False)
-        st.pyplot(bbox_inches='tight')
+        fig_bar = plt.gcf()  # Get current figure
+        st.pyplot(fig_bar)
+        # Dot plot
         shap.summary_plot(shap_values, X_test, show=False)
-        st.pyplot(bbox_inches='tight')
+        fig_dot = plt.gcf()
+        st.pyplot(fig_dot)
 
 elif page == "🧪 Live Prediction":
     st.title("🧪 Live Patient Prediction")
